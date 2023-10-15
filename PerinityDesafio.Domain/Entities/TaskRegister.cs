@@ -7,4 +7,10 @@ public class TaskRegister : BaseEntity
     public DateOnly Deadline { get; set; }
     public short Duration { get; set; }
     public bool Finished { get; set; }
+
+    public long DepartmentRegisterId { get; set; }
+    public DepartmentRegister DepartmentRegister { get; set; }
+
+    public long? PersonRegisterId { get; set; }
+    public PersonRegister? PersonRegister { get; set; }
 }
