@@ -6,7 +6,6 @@ public class PersonRegister : BaseEntity
 
     public long DepartmentRegisterId { get; set; }
     public DepartmentRegister DepartmentRegister { get; set; }
-
     public ICollection<TaskRegister> TaskRegisters { get; set; }
 
 }

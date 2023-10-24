@@ -15,34 +15,30 @@ public class DatabaseContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<TaskRegister>()
-            .HasKey(tk => tk.Id);
+        modelBuilder.Entity<DepartmentRegister>()
+            .HasKey(dp => dp.Id);
 
         modelBuilder.Entity<PersonRegister>()
             .HasKey(ps => ps.Id);
 
-        modelBuilder.Entity<DepartmentRegister>()
-            .HasKey(dp => dp.Id);
+        modelBuilder.Entity<TaskRegister>()
+            .HasKey(tk => tk.Id);
 
+        modelBuilder.Entity<PersonRegister>()
+           .HasOne(ps => ps.DepartmentRegister)
+           .WithMany(dp => dp.PersonRegisters)
+           .HasForeignKey(ps => ps.DepartmentRegisterId);
 
         modelBuilder.Entity<TaskRegister>()
             .HasOne(tk => tk.PersonRegister)
             .WithMany(ps => ps.TaskRegisters)
             .HasForeignKey(tk => tk.PersonRegisterId)
-            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired(false);
 
         modelBuilder.Entity<TaskRegister>()
             .HasOne(tk => tk.DepartmentRegister)
             .WithMany(dp => dp.TaskRegisters)
-            .HasForeignKey(tk => tk.DepartmentRegisterId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
+            .HasForeignKey(tk => tk.DepartmentRegisterId);
 
-        modelBuilder.Entity<PersonRegister>()
-            .HasOne(ps => ps.DepartmentRegister)
-            .WithMany(dp => dp.PersonRegisters)
-            .HasForeignKey(ps => ps.DepartmentRegisterId)
-            .IsRequired();
     }
 }
