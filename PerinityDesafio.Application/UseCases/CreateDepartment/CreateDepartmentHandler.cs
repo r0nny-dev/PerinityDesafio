@@ -5,7 +5,7 @@ using PerinityDesafio.Domain.Interfaces;
 
 namespace PerinityDesafio.Application.UseCases.CreateDepartment;
 
-internal class CreateDepartmentHandler : IRequestHandler<CreateDepartmentRequest, CreateDepartmentResponse>
+public class CreateDepartmentHandler : IRequestHandler<CreateDepartmentRequest, CreateDepartmentResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IDepartmentRepository _departmentRepository;
