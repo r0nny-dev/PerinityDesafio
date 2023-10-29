@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PerinityDesafio.Application.UseCases.CreateDepartment;
+using PerinityDesafio.Application.UseCases.GetDepartment;
 
 namespace PerinityDesafio.API.Controllers;
 
@@ -13,6 +14,14 @@ public class DepartmentController : ControllerBase
     public DepartmentController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<GetDepartmentResponse>>> GetDepartments(CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(new GetDepartmentRequest(), cancellationToken);
+
+        return Ok(response);
     }
 
     [HttpPost]
