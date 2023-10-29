@@ -20,4 +20,12 @@ public class TaskRepository : BaseRepository<TaskRegister>, ITaskRepository
                 .Include(tk => tk.DepartmentRegister)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
+    public async Task<List<TaskRegister>> GetPending()
+        => await _databaseContext.TaskRegisters
+                .Include(tk => tk.DepartmentRegister)
+                .Where(tk => tk.PersonRegister == null)
+                .OrderBy(tk => tk.Deadline)
+                .Take(3)
+                .ToListAsync();
+
 }
