@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PerinityDesafio.Application.UseCases.AllocatePerson;
 using PerinityDesafio.Application.UseCases.CreateTask;
 using PerinityDesafio.Application.UseCases.FinishTask;
+using PerinityDesafio.Application.UseCases.PendingTask;
 
 namespace PerinityDesafio.API.Controllers;
 
@@ -15,6 +16,14 @@ public class TaskController : ControllerBase
     public TaskController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet("pendentes")]
+    public async Task<ActionResult<List<PendingTaskResponse>>> GetPending(CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(new PendingTaskRequest(), cancellationToken);
+
+        return Ok(response);
     }
 
     [HttpPost]
