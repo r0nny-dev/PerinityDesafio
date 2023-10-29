@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PerinityDesafio.Application.UseCases.CreatePerson;
 using PerinityDesafio.Application.UseCases.DeletePerson;
 using PerinityDesafio.Application.UseCases.GetAllPerson;
+using PerinityDesafio.Application.UseCases.GetPerson;
 using PerinityDesafio.Application.UseCases.UpdatePerson;
 
 namespace PerinityDesafio.API.Controllers;
@@ -22,6 +23,13 @@ public class PersonController : ControllerBase
     public async Task<ActionResult<List<GetAllPersonResponse>>> GetAll(CancellationToken cancellationToken)
     {
         var response = await _mediator.Send(new GetAllPersonRequest(), cancellationToken);
+        return Ok(response);
+    }
+
+    [HttpGet("gastos")]
+    public async Task<ActionResult<GetPersonResponse>> GetGastos([FromQuery] GetPersonRequest request, CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(request, cancellationToken);
         return Ok(response);
     }
 
@@ -46,7 +54,7 @@ public class PersonController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<DeletePersonResponse>> Delete(long id, CancellationToken cancellationToken)
     {
-        if (id == null || id == 0) return BadRequest();
+        if (id == 0) return BadRequest();
 
         var deletePersonRequest = new DeletePersonRequest(Id: id);
 
@@ -54,5 +62,7 @@ public class PersonController : ControllerBase
 
         return Ok(response);
     }
+
+
 
 }
