@@ -22,4 +22,12 @@ public class PersonRepository : BaseRepository<PersonRegister>, IPersonRepositor
             .Include(ps => ps.TaskRegisters)
             .ToListAsync();
     }
+
+    public async Task<PersonRegister?> GetPersonByName(string name, CancellationToken cancellationToken)
+    {
+        return await _context.Persons
+            .Include(ps => ps.DepartmentRegister)
+            .Include(ps => ps.TaskRegisters)
+            .FirstOrDefaultAsync(x => x.Name == name);
+    }
 }
