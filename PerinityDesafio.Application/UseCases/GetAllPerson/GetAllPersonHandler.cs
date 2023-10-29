@@ -7,13 +7,11 @@ namespace PerinityDesafio.Application.UseCases.GetAllPerson;
 public sealed class GetAllPersonHandler : IRequestHandler<GetAllPersonRequest, List<GetAllPersonResponse>>
 {
     private readonly IMapper _mapper;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IPersonRepository _personRepository;
 
-    public GetAllPersonHandler(IMapper mapper, IUnitOfWork unitOfWork, IPersonRepository personRepository)
+    public GetAllPersonHandler(IMapper mapper, IPersonRepository personRepository)
     {
         _mapper = mapper;
-        _unitOfWork = unitOfWork;
         _personRepository = personRepository;
     }
 
