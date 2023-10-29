@@ -21,7 +21,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     public async Task<List<T>> GetAllAsync()
         => await _context.Set<T>().ToListAsync();
 
-    public async Task<T> GetByIdAsync(int id)
+    public async Task<T> GetByIdAsync(long id)
         => await _context.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
 
     public void Update(T entity)
